@@ -9,7 +9,7 @@ import {
 const INITIAL_BALANCE = 5000.00;
 const VIRTUAL_ACCOUNT_NO = "VA-8492-3310-9941";
 const STUDENT_USER = {
-  name: "Alex Johnson",
+  name: "Navod Caldera",
   studentId: "STU-2023-891",
   university: "University of Moratuwa"
 };
