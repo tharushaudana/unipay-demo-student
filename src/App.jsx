@@ -6,18 +6,18 @@ import {
 } from 'lucide-react';
 
 // --- MOCK DATA ---
-const INITIAL_BALANCE = 250.00;
+const INITIAL_BALANCE = 5000.00;
 const VIRTUAL_ACCOUNT_NO = "VA-8492-3310-9941";
 const STUDENT_USER = {
-  name: "Navod Caldera",
+  name: "Alex Johnson",
   studentId: "STU-2023-891",
   university: "University of Moratuwa"
 };
 
 const INITIAL_TRANSACTIONS = [
-  { id: 1, type: 'payment', merchant: 'Goda Canteen', amount: 4.50, date: 'Today, 09:15 AM', category: 'Food & Drink' },
-  { id: 2, type: 'split', merchant: 'Split with Sarah (Pizza)', amount: 12.00, date: 'Yesterday, 08:30 PM', category: 'Split' },
-  { id: 3, type: 'payment', merchant: 'University Bookstore', amount: 45.00, date: 'Mon, 02:00 PM', category: 'Education' },
+  { id: 1, type: 'payment', merchant: 'Goda Canteen', amount: 250.00, date: 'Today, 09:15 AM', category: 'Food & Drink' },
+  { id: 2, type: 'split', merchant: 'Split with Sarah (Pizza)', amount: 800.00, date: 'Yesterday, 08:30 PM', category: 'Split' },
+  { id: 3, type: 'payment', merchant: 'University Bookstore', amount: 1200.00, date: 'Mon, 02:00 PM', category: 'Education' },
 ];
 
 const UNIVERSITIES = [
@@ -116,7 +116,7 @@ export default function App() {
       <div className="px-6 -mt-16 w-full max-w-4xl mx-auto relative z-10">
         <div className="bg-white rounded-3xl p-6 shadow-xl shadow-indigo-100">
           <p className="text-gray-500 text-sm mb-1">Available Voucher Balance</p>
-          <h1 className="text-4xl font-extrabold text-gray-900 mb-4">${balance.toFixed(2)}</h1>
+          <h1 className="text-4xl font-extrabold text-gray-900 mb-4">LKR {balance.toFixed(2)}</h1>
           
           <div className="flex gap-4">
             <button 
@@ -180,7 +180,7 @@ export default function App() {
                   <p className="text-xs text-gray-400">{tx.date}</p>
                 </div>
               </div>
-              <span className="font-semibold text-gray-900">-${tx.amount.toFixed(2)}</span>
+              <span className="font-semibold text-gray-900">-LKR {tx.amount.toFixed(2)}</span>
             </div>
           ))}
         </div>
@@ -222,7 +222,7 @@ export default function App() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Amount ($)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Amount (LKR)</label>
               <input 
                 type="number" 
                 placeholder="0.00" 
@@ -269,7 +269,7 @@ export default function App() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Amount ($)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Amount (LKR)</label>
               <input 
                 type="number" 
                 placeholder="0.00" 
@@ -332,7 +332,7 @@ export default function App() {
                 <p className="text-center text-gray-500 mb-4 font-medium">Enter amount for Goda Canteen</p>
                 <input 
                   type="number" 
-                  placeholder="$0.00" 
+                  placeholder="LKR 0.00" 
                   className="w-full text-center p-4 bg-gray-50 rounded-2xl text-4xl font-extrabold text-gray-900 mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   value={amount} onChange={e => setAmount(e.target.value)}
                   autoFocus
@@ -381,7 +381,7 @@ export default function App() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Amount to Send ($)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Amount to Send (LKR)</label>
               <input 
                 type="number" 
                 placeholder="0.00" 
@@ -421,7 +421,7 @@ export default function App() {
         <div className="bg-white text-gray-900 w-full rounded-3xl p-6 shadow-2xl relative z-10">
           <div className="text-center mb-6 border-b border-gray-100 pb-6">
             <p className="text-gray-500 text-sm mb-1">Total Paid</p>
-            <h1 className="text-4xl font-extrabold">${paymentDetails?.amount.toFixed(2)}</h1>
+            <h1 className="text-4xl font-extrabold">LKR {paymentDetails?.amount.toFixed(2)}</h1>
           </div>
           
           <div className="space-y-4 text-sm">
@@ -460,35 +460,35 @@ export default function App() {
       <div className="p-6 w-full max-w-4xl mx-auto">
         <div className="bg-white p-6 rounded-3xl shadow-sm mb-6">
           <p className="text-gray-500 text-sm text-center mb-1">Total Spent This Month</p>
-          <h2 className="text-3xl font-extrabold text-center text-gray-900 mb-6">$184.50</h2>
+          <h2 className="text-3xl font-extrabold text-center text-gray-900 mb-6">LKR 4,500.00</h2>
           
           {/* Simulated Chart */}
           <div className="space-y-4">
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span className="font-medium text-gray-700 flex items-center gap-2"><Coffee size={14}/> Food & Drink</span>
-                <span className="font-bold">$120.00</span>
+                <span className="font-bold">LKR 2,500.00</span>
               </div>
               <div className="w-full bg-gray-100 rounded-full h-3">
-                <div className="bg-indigo-500 h-3 rounded-full" style={{ width: '65%' }}></div>
+                <div className="bg-indigo-500 h-3 rounded-full" style={{ width: '55%' }}></div>
               </div>
             </div>
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span className="font-medium text-gray-700 flex items-center gap-2"><Building2 size={14}/> Education</span>
-                <span className="font-bold">$45.00</span>
+                <span className="font-bold">LKR 1,200.00</span>
               </div>
               <div className="w-full bg-gray-100 rounded-full h-3">
-                <div className="bg-blue-500 h-3 rounded-full" style={{ width: '25%' }}></div>
+                <div className="bg-blue-500 h-3 rounded-full" style={{ width: '27%' }}></div>
               </div>
             </div>
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span className="font-medium text-gray-700 flex items-center gap-2"><ArrowRightLeft size={14}/> Splits/Transfers</span>
-                <span className="font-bold">$19.50</span>
+                <span className="font-bold">LKR 800.00</span>
               </div>
               <div className="w-full bg-gray-100 rounded-full h-3">
-                <div className="bg-purple-500 h-3 rounded-full" style={{ width: '10%' }}></div>
+                <div className="bg-purple-500 h-3 rounded-full" style={{ width: '18%' }}></div>
               </div>
             </div>
           </div>
