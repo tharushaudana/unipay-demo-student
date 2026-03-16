@@ -9,19 +9,28 @@ import {
 const INITIAL_BALANCE = 250.00;
 const VIRTUAL_ACCOUNT_NO = "VA-8492-3310-9941";
 const STUDENT_USER = {
-  name: "Alex Johnson",
+  name: "Navod Caldera",
   studentId: "STU-2023-891",
-  university: "Tech State University"
+  university: "University of Moratuwa"
 };
 
 const INITIAL_TRANSACTIONS = [
-  { id: 1, type: 'payment', merchant: 'Campus Coffee Shop', amount: 4.50, date: 'Today, 09:15 AM', category: 'Food & Drink' },
+  { id: 1, type: 'payment', merchant: 'Goda Canteen', amount: 4.50, date: 'Today, 09:15 AM', category: 'Food & Drink' },
   { id: 2, type: 'split', merchant: 'Split with Sarah (Pizza)', amount: 12.00, date: 'Yesterday, 08:30 PM', category: 'Split' },
   { id: 3, type: 'payment', merchant: 'University Bookstore', amount: 45.00, date: 'Mon, 02:00 PM', category: 'Education' },
 ];
 
-const UNIVERSITIES = ["Tech State University", "City College", "National Arts Academy"];
-const CANTEENS = ["Main Cafeteria", "Engineering Block Cafe", "Library Coffee Cart"];
+const UNIVERSITIES = [
+  "University of Moratuwa", 
+  "University of Colombo", 
+  "University of Peradeniya", 
+  "University of Sri Jayewardenepura", 
+  "University of Kelaniya", 
+  "University of Ruhuna", 
+  "SLIIT",
+  "NSBM Green University"
+];
+const CANTEENS = ["Goda Canteen", "Wala Canteen", "Staff Canteen", "L Canteen", "Main Cafeteria", "Engineering Block Cafe"];
 const RESTAURANTS = ["Burger Joint", "Sushi Express", "The Vegan Bowl", "Taco Stand"];
 
 export default function App() {
@@ -66,14 +75,14 @@ export default function App() {
   // --- VIEWS ---
 
   const LoginView = () => (
-    <div className="flex flex-col items-center justify-center h-full p-8 bg-indigo-600 text-white">
+    <div className="flex flex-col items-center justify-center h-full min-h-screen p-8 bg-indigo-600 text-white">
       <div className="w-24 h-24 bg-white rounded-3xl flex items-center justify-center mb-6 shadow-lg rotate-12">
         <Wallet size={48} className="text-indigo-600 -rotate-12" />
       </div>
-      <h1 className="text-4xl font-bold mb-2">UniVoucher</h1>
+      <h1 className="text-4xl font-bold mb-2">UniPay</h1>
       <p className="text-indigo-200 text-center mb-12">The smart way to spend on & off campus.</p>
       
-      <div className="w-full space-y-4">
+      <div className="w-full max-w-md space-y-4">
         <button 
           onClick={() => setCurrentView('dashboard')}
           className="w-full bg-white text-indigo-600 py-4 rounded-2xl font-bold text-lg shadow-md hover:bg-gray-50 transition-colors"
@@ -88,10 +97,10 @@ export default function App() {
   );
 
   const DashboardView = () => (
-    <div className="flex flex-col h-full bg-gray-50 pb-20 overflow-y-auto">
+    <div className="flex flex-col h-full bg-gray-50 pb-24 overflow-y-auto min-h-screen">
       {/* Header */}
       <div className="bg-indigo-600 text-white p-6 pb-24 rounded-b-[40px] relative">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-center mb-6 max-w-4xl mx-auto w-full">
           <div>
             <p className="text-indigo-200 text-sm">Welcome back,</p>
             <h2 className="text-xl font-bold">{STUDENT_USER.name}</h2>
@@ -104,7 +113,7 @@ export default function App() {
       </div>
 
       {/* Balance Card */}
-      <div className="px-6 -mt-16">
+      <div className="px-6 -mt-16 w-full max-w-4xl mx-auto relative z-10">
         <div className="bg-white rounded-3xl p-6 shadow-xl shadow-indigo-100">
           <p className="text-gray-500 text-sm mb-1">Available Voucher Balance</p>
           <h1 className="text-4xl font-extrabold text-gray-900 mb-4">${balance.toFixed(2)}</h1>
@@ -127,9 +136,9 @@ export default function App() {
       </div>
 
       {/* Quick Actions */}
-      <div className="p-6">
+      <div className="p-6 w-full max-w-4xl mx-auto">
         <h3 className="font-bold text-gray-800 mb-4">Transfer & Pay</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <button 
             onClick={() => setCurrentView('campus_pay')}
             className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center gap-3 hover:border-indigo-300 transition"
@@ -152,7 +161,7 @@ export default function App() {
       </div>
 
       {/* Recent Activity */}
-      <div className="px-6">
+      <div className="px-6 w-full max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-4">
           <h3 className="font-bold text-gray-800">Recent Activity</h3>
           <button className="text-indigo-600 text-sm font-medium">See all</button>
@@ -185,9 +194,9 @@ export default function App() {
     const [amount, setAmount] = useState('');
 
     return (
-      <div className="flex flex-col h-full bg-white">
+      <div className="flex flex-col h-full bg-white min-h-screen">
         <Header title="Campus Pay" onBack={() => setCurrentView('dashboard')} />
-        <div className="p-6 flex-1">
+        <div className="p-6 flex-1 w-full max-w-2xl mx-auto">
           <p className="text-gray-500 text-sm mb-6">Pay directly to university merchants and canteens.</p>
           
           <div className="space-y-5">
@@ -224,7 +233,7 @@ export default function App() {
           </div>
         </div>
         
-        <div className="p-6">
+        <div className="p-6 w-full max-w-2xl mx-auto">
           <button 
             disabled={!canteen || !amount}
             onClick={() => handlePayment(`${uni} - ${canteen}`, amount, 'Food & Drink')}
@@ -242,9 +251,9 @@ export default function App() {
     const [amount, setAmount] = useState('');
 
     return (
-      <div className="flex flex-col h-full bg-white">
+      <div className="flex flex-col h-full bg-white min-h-screen">
         <Header title="Off-Campus Pay" onBack={() => setCurrentView('dashboard')} />
-        <div className="p-6 flex-1">
+        <div className="p-6 flex-1 w-full max-w-2xl mx-auto">
           <p className="text-gray-500 text-sm mb-6">Pay at partnered local restaurants and stores.</p>
           
           <div className="space-y-5">
@@ -271,7 +280,7 @@ export default function App() {
           </div>
         </div>
         
-        <div className="p-6">
+        <div className="p-6 w-full max-w-2xl mx-auto">
           <button 
             disabled={!restaurant || !amount}
             onClick={() => handlePayment(restaurant, amount, 'Food & Drink')}
@@ -289,13 +298,13 @@ export default function App() {
     const [scanned, setScanned] = useState(false);
 
     return (
-      <div className="flex flex-col h-full bg-black">
-        <div className="p-4 flex items-center text-white relative">
+      <div className="flex flex-col h-full bg-black min-h-screen">
+        <div className="p-4 flex items-center text-white relative w-full max-w-2xl mx-auto">
           <button onClick={() => setCurrentView('dashboard')} className="p-2 z-10"><ChevronLeft size={24} /></button>
           <h2 className="text-lg font-bold flex-1 text-center absolute w-full left-0 z-0">Scan to Pay</h2>
         </div>
         
-        <div className="flex-1 relative flex flex-col items-center justify-center px-6">
+        <div className="flex-1 relative flex flex-col items-center justify-center px-6 w-full max-w-2xl mx-auto">
           {/* Simulated Camera Viewfinder */}
           <div className="w-64 h-64 border-2 border-white/30 rounded-3xl relative mb-8 overflow-hidden bg-gray-900 flex items-center justify-center">
             {/* Corner markers */}
@@ -313,14 +322,14 @@ export default function App() {
               <div className="bg-indigo-500/20 w-full h-full flex items-center justify-center flex-col animate-pulse">
                 <CheckCircle2 className="text-indigo-400 mb-2" size={40} />
                 <span className="text-white font-bold">Merchant Detected</span>
-                <span className="text-indigo-200 text-sm">Library Coffee Cart</span>
+                <span className="text-indigo-200 text-sm">Goda Canteen</span>
               </div>
             )}
           </div>
 
           {scanned && (
              <div className="w-full bg-white rounded-3xl p-6 animate-in slide-in-from-bottom-10">
-                <p className="text-center text-gray-500 mb-4 font-medium">Enter amount for Library Coffee Cart</p>
+                <p className="text-center text-gray-500 mb-4 font-medium">Enter amount for Goda Canteen</p>
                 <input 
                   type="number" 
                   placeholder="$0.00" 
@@ -330,7 +339,7 @@ export default function App() {
                 />
                 <button 
                   disabled={!amount}
-                  onClick={() => handlePayment('Library Coffee Cart (QR)', amount, 'Food & Drink')}
+                  onClick={() => handlePayment('Goda Canteen (QR)', amount, 'Food & Drink')}
                   className="w-full bg-indigo-600 disabled:bg-indigo-300 text-white py-4 rounded-xl font-bold text-lg shadow-md transition-colors"
                 >
                   Confirm Payment
@@ -347,9 +356,9 @@ export default function App() {
     const [amount, setAmount] = useState('');
 
     return (
-      <div className="flex flex-col h-full bg-white">
+      <div className="flex flex-col h-full bg-white min-h-screen">
         <Header title="Split Bill" onBack={() => setCurrentView('dashboard')} />
-        <div className="p-6 flex-1">
+        <div className="p-6 flex-1 w-full max-w-2xl mx-auto">
           <div className="bg-indigo-50 rounded-2xl p-4 flex items-center gap-4 mb-8">
             <div className="bg-white p-3 rounded-full text-indigo-600 shadow-sm">
               <ArrowRightLeft size={24} />
@@ -383,7 +392,7 @@ export default function App() {
           </div>
         </div>
         
-        <div className="p-6">
+        <div className="p-6 w-full max-w-2xl mx-auto">
           <button 
             disabled={!studentId || !amount}
             onClick={() => handlePayment(`Split with ${studentId.toUpperCase()}`, amount, 'Split')}
@@ -397,56 +406,58 @@ export default function App() {
   };
 
   const SuccessView = () => (
-    <div className="flex flex-col h-full bg-indigo-600 text-white relative justify-center items-center p-8">
-      <div className="bg-white/10 w-48 h-48 rounded-full absolute -top-10 -right-10 blur-2xl"></div>
-      <div className="bg-white/10 w-48 h-48 rounded-full absolute -bottom-10 -left-10 blur-2xl"></div>
+    <div className="flex flex-col h-full bg-indigo-600 text-white relative justify-center items-center p-8 min-h-screen overflow-hidden">
+      <div className="bg-white/10 w-64 h-64 rounded-full absolute -top-10 -right-10 blur-3xl"></div>
+      <div className="bg-white/10 w-64 h-64 rounded-full absolute -bottom-10 -left-10 blur-3xl"></div>
       
-      <div className="bg-white w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-xl relative z-10 animate-bounce">
-        <CheckCircle2 size={48} className="text-green-500" />
-      </div>
-      
-      <h2 className="text-3xl font-bold mb-1 relative z-10">Payment Successful!</h2>
-      <p className="text-indigo-200 mb-8 relative z-10">Your transaction has been processed.</p>
-      
-      <div className="bg-white text-gray-900 w-full rounded-3xl p-6 shadow-2xl relative z-10">
-        <div className="text-center mb-6 border-b border-gray-100 pb-6">
-          <p className="text-gray-500 text-sm mb-1">Total Paid</p>
-          <h1 className="text-4xl font-extrabold">${paymentDetails?.amount.toFixed(2)}</h1>
+      <div className="w-full max-w-md flex flex-col items-center">
+        <div className="bg-white w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-xl relative z-10 animate-bounce">
+          <CheckCircle2 size={48} className="text-green-500" />
         </div>
         
-        <div className="space-y-4 text-sm">
-          <div className="flex justify-between">
-            <span className="text-gray-500">Merchant</span>
-            <span className="font-semibold">{paymentDetails?.merchant}</span>
+        <h2 className="text-3xl font-bold mb-1 relative z-10">Payment Successful!</h2>
+        <p className="text-indigo-200 mb-8 relative z-10 text-center">Your transaction has been processed.</p>
+        
+        <div className="bg-white text-gray-900 w-full rounded-3xl p-6 shadow-2xl relative z-10">
+          <div className="text-center mb-6 border-b border-gray-100 pb-6">
+            <p className="text-gray-500 text-sm mb-1">Total Paid</p>
+            <h1 className="text-4xl font-extrabold">${paymentDetails?.amount.toFixed(2)}</h1>
           </div>
-          <div className="flex justify-between">
-            <span className="text-gray-500">Date</span>
-            <span className="font-semibold">{paymentDetails?.date.split(',')[0]}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-500">Time</span>
-            <span className="font-semibold">{paymentDetails?.time || "Just now"}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-500">Transaction ID</span>
-            <span className="font-mono text-xs mt-1">TXN-{Math.floor(Math.random() * 100000000)}</span>
+          
+          <div className="space-y-4 text-sm">
+            <div className="flex justify-between">
+              <span className="text-gray-500">Merchant</span>
+              <span className="font-semibold text-right max-w-[60%]">{paymentDetails?.merchant}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-500">Date</span>
+              <span className="font-semibold">{paymentDetails?.date.split(',')[0]}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-500">Time</span>
+              <span className="font-semibold">{paymentDetails?.time || "Just now"}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-500">Transaction ID</span>
+              <span className="font-mono text-xs mt-1">TXN-{Math.floor(Math.random() * 100000000)}</span>
+            </div>
           </div>
         </div>
+        
+        <button 
+          onClick={() => setCurrentView('dashboard')}
+          className="w-full bg-white/20 hover:bg-white/30 text-white py-4 rounded-xl font-bold text-lg mt-8 relative z-10 backdrop-blur-sm transition"
+        >
+          Back to Dashboard
+        </button>
       </div>
-      
-      <button 
-        onClick={() => setCurrentView('dashboard')}
-        className="w-full bg-white/20 hover:bg-white/30 text-white py-4 rounded-xl font-bold text-lg mt-8 relative z-10 backdrop-blur-sm transition"
-      >
-        Back to Dashboard
-      </button>
     </div>
   );
 
   const AnalyticsView = () => (
-    <div className="flex flex-col h-full bg-gray-50 pb-20 overflow-y-auto">
+    <div className="flex flex-col h-full bg-gray-50 pb-24 overflow-y-auto min-h-screen">
       <Header title="Spending Analytics" />
-      <div className="p-6">
+      <div className="p-6 w-full max-w-4xl mx-auto">
         <div className="bg-white p-6 rounded-3xl shadow-sm mb-6">
           <p className="text-gray-500 text-sm text-center mb-1">Total Spent This Month</p>
           <h2 className="text-3xl font-extrabold text-center text-gray-900 mb-6">$184.50</h2>
@@ -498,9 +509,9 @@ export default function App() {
   );
 
   const ProfileView = () => (
-    <div className="flex flex-col h-full bg-gray-50 pb-20 overflow-y-auto">
+    <div className="flex flex-col h-full bg-gray-50 pb-24 overflow-y-auto min-h-screen">
       <Header title="My Profile" />
-      <div className="p-6 flex flex-col items-center">
+      <div className="p-6 flex flex-col items-center w-full max-w-2xl mx-auto">
         <div className="w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center text-indigo-600 mb-4 shadow-sm border-4 border-white">
           <User size={40} />
         </div>
@@ -538,13 +549,15 @@ export default function App() {
 
   // --- REUSABLE COMPONENTS ---
   const Header = ({ title, onBack }) => (
-    <div className="bg-white p-4 flex items-center shadow-sm relative z-10">
-      {onBack && (
-        <button onClick={onBack} className="p-2 -ml-2 text-gray-600 hover:bg-gray-100 rounded-full transition absolute">
-          <ChevronLeft size={24} />
-        </button>
-      )}
-      <h2 className="text-lg font-bold flex-1 text-center text-gray-800">{title}</h2>
+    <div className="bg-white p-4 flex items-center shadow-sm relative z-10 justify-center">
+      <div className="w-full max-w-2xl flex items-center relative">
+        {onBack && (
+          <button onClick={onBack} className="p-2 -ml-2 text-gray-600 hover:bg-gray-100 rounded-full transition absolute left-0">
+            <ChevronLeft size={24} />
+          </button>
+        )}
+        <h2 className="text-lg font-bold flex-1 text-center text-gray-800">{title}</h2>
+      </div>
     </div>
   );
 
@@ -553,10 +566,12 @@ export default function App() {
     if (!['dashboard', 'analytics', 'profile'].includes(currentView)) return null;
 
     return (
-      <div className="absolute bottom-0 w-full bg-white border-t border-gray-100 flex justify-around p-2 pb-6 sm:pb-4 rounded-b-[40px] z-50">
-        <NavButton icon={<Home />} label="Home" id="dashboard" />
-        <NavButton icon={<PieChart />} label="Analytics" id="analytics" />
-        <NavButton icon={<User />} label="Profile" id="profile" />
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 flex justify-around p-2 pb-6 sm:pb-4 z-50">
+        <div className="w-full max-w-md flex justify-around mx-auto">
+          <NavButton icon={<Home />} label="Home" id="dashboard" />
+          <NavButton icon={<PieChart />} label="Analytics" id="analytics" />
+          <NavButton icon={<User />} label="Profile" id="profile" />
+        </div>
       </div>
     );
   };
@@ -576,24 +591,20 @@ export default function App() {
 
   // --- RENDERER ---
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-200 p-0 sm:p-8">
-      {/* Mobile Device Simulation Container */}
-      <div className="w-full max-w-[400px] bg-white h-screen sm:h-[800px] sm:rounded-[40px] shadow-2xl overflow-hidden flex flex-col relative border-[8px] border-gray-900">
-        
-        {/* Dynamic View Content */}
-        {currentView === 'login' && <LoginView />}
-        {currentView === 'dashboard' && <DashboardView />}
-        {currentView === 'campus_pay' && <CampusPayView />}
-        {currentView === 'off_campus_pay' && <OffCampusPayView />}
-        {currentView === 'qr_pay' && <QrScanView />}
-        {currentView === 'split' && <SplitBillView />}
-        {currentView === 'success' && <SuccessView />}
-        {currentView === 'analytics' && <AnalyticsView />}
-        {currentView === 'profile' && <ProfileView />}
+    <div className="w-full min-h-screen bg-white flex flex-col relative font-sans">
+      {/* Dynamic View Content */}
+      {currentView === 'login' && <LoginView />}
+      {currentView === 'dashboard' && <DashboardView />}
+      {currentView === 'campus_pay' && <CampusPayView />}
+      {currentView === 'off_campus_pay' && <OffCampusPayView />}
+      {currentView === 'qr_pay' && <QrScanView />}
+      {currentView === 'split' && <SplitBillView />}
+      {currentView === 'success' && <SuccessView />}
+      {currentView === 'analytics' && <AnalyticsView />}
+      {currentView === 'profile' && <ProfileView />}
 
-        {/* Bottom Navigation Menu */}
-        <NavigationBar />
-      </div>
+      {/* Bottom Navigation Menu */}
+      <NavigationBar />
     </div>
   );
 }
